@@ -179,5 +179,5 @@ public class EncerradorDeLeilaoTest {
 
 	        verify(carteiroFalso, never()).envia(any(Leilao.class));
 	    }
-
+	 
 }

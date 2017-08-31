@@ -25,8 +25,8 @@ public class AvaliadorTest {
 	@Before
 	public void criaAvaliador() {
 		this.leiloeiro = new Avaliador();
-		this.joao = new Usuario("Jo�o");
-		this.jose = new Usuario("Jos�");
+		this.joao = new Usuario("João");
+		this.jose = new Usuario("José");
 		this.maria = new Usuario("Maria");
 	}
 	
