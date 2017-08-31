@@ -24,7 +24,6 @@ public class GeradorDePagamentoTest {
 
         RepositorioDeLeiloes leiloes = mock(RepositorioDeLeiloes.class);
         RepositorioDePagamentos pagamentos = mock(RepositorioDePagamentos.class);
-        Avaliador avaliador = mock(Avaliador.class);
 
         Leilao leilao = new CriadorDeLeilao()
             .para("Playstation")
@@ -33,10 +32,9 @@ public class GeradorDePagamentoTest {
             .constroi();
 
         when(leiloes.encerrados()).thenReturn(Arrays.asList(leilao));
-        when(avaliador.getMaiorLance()).thenReturn(2500.0);
 
         GeradorDePagamento gerador = 
-            new GeradorDePagamento(leiloes, pagamentos, avaliador);
+            new GeradorDePagamento(leiloes, pagamentos, new Avaliador());
         gerador.gera();
 
         ArgumentCaptor<Pagamento> argumento = ArgumentCaptor.forClass(Pagamento.class);
