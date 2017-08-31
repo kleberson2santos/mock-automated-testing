@@ -15,7 +15,7 @@ import br.com.mock.leilao.dominio.Lance;
 import br.com.mock.leilao.dominio.Leilao;
 import br.com.mock.leilao.dominio.Usuario;
 
-public class LeilaoDao {
+public class LeilaoDao implements RepositorioDeLeiloes{
 
 	private Connection conexao;
 
