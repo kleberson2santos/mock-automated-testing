@@ -5,24 +5,33 @@ import java.util.List;
 
 import br.com.mock.leilao.dominio.Leilao;
 import br.com.mock.leilao.infra.dao.RepositorioDeLeiloes;
+import br.com.mock.leilao.infra.email.EnviadorDeEmail;
 
 public class EncerradorDeLeilao {
 
 	private int total = 0;
 	private final RepositorioDeLeiloes dao;
+	private final EnviadorDeEmail carteiro;
 
-	public EncerradorDeLeilao(RepositorioDeLeiloes dao) {
+	public EncerradorDeLeilao(RepositorioDeLeiloes dao, EnviadorDeEmail carteiro) {
 		this.dao = dao;
+		this.carteiro = carteiro;
 	}
 
 	public void encerra() {
 		List<Leilao> todosLeiloesCorrentes = dao.correntes();
 
 		for (Leilao leilao : todosLeiloesCorrentes) {
-			if (comecouSemanaPassada(leilao)) {
-				leilao.encerra();
-				total++;
-				dao.atualiza(leilao);
+			try {
+				if (comecouSemanaPassada(leilao)) {
+					leilao.encerra();
+					total++;
+					dao.atualiza(leilao);
+					carteiro.envia(leilao);
+				}
+			} catch (Exception e) {
+				// salvo a excecao no sistema
+				// e o loop continua
 			}
 		}
 	}
